@@ -10,18 +10,19 @@ int max(int a, int b)
 	return a > b ? a : b;
 }
 
-int clamp(int value, int min, int max)
+int clamp(int value, int lower, int upper)
 {
-	if (value < min)
-		return min;
-	else if (value > max)
-		return max;
-	return value;
+	return max(lower, min(value, upper));
 }
 
 int abs(int value)
 {
 	return value < 0 ? (int)(-1 * value) : value;
+}
+
+float fAbs(float value)
+{
+	return value < 0 ? (-1 * value) : value;
 }
 
 int pow(int base, int power)
@@ -51,12 +52,10 @@ int nextPowerOfTwo(int val)
 
 float moveTowards(float current, float target, float maxDelta)
 {
-	//add to the current until at target
-	if (current < target)
-		return (current + maxDelta < target ) ? current += maxDelta : target;
-	//Sub to the current until at target
-	else if (current > target)
-		return (current + maxDelta > target) ? current -= maxDelta : target;
-	
-	return target;
+	return (current + maxDelta < target && current < target || current - maxDelta > target && current > target) ? ((current < target) ? current += maxDelta : current -= maxDelta) : target;
 }
+
+
+
+
+

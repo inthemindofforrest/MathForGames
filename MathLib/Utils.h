@@ -12,6 +12,7 @@ const double DEG_TO_RAD = PI / 180;
 const double RAD_TO_DEG = 180 / PI;
 
 int abs(int value);
+float fAbs(float value);
 
 int pow(int base, int power);
 
