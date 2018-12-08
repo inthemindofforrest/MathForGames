@@ -8,70 +8,150 @@ struct Ball
 {
 	Texture2D tex;
 	vec2 Position{100,100};
+	vec2 Forward{ 0,-1 };
+	vec2 Right{ 1,0 };
 	vec2 Direction{1,1};
 	vec2 Center;
+	bool IsActive = false;
+	float Rotation;
+	float timer = 0;
+
+	float DistanceMultiplier = 50;
+	float SpinSpeed = 3;
+
+	void Update(vec2 Origin, float Timer, int Offset);
 };
 
 int main()
 {
 	int screenWidth = 800;
 	int screenHeight = 450;
-	int speed = 250;
-	Ball TheBall;
+
+	const int Amount = 10;
+
+	Ball TheBall[Amount];
 	Ball Player;
-	vec2 MoveTo{0,0};
 
 	InitWindow(screenWidth, screenHeight, "Not Planet Destroyers");
 	SetTargetFPS(60);
+	HideCursor();
 
-	TheBall.tex = LoadTexture("Ball.png");
+	float SpawnTimer = 1;
+	float timer = 0;
+	bool Crazy = false;
+
+
 	Player.tex = LoadTexture("Ball.png");
+	for(int i = 0; i < Amount; i++)
+		TheBall[i].tex = LoadTexture("Ball.png");
 
 	while (!WindowShouldClose())
 	{
-		TheBall.Center = { TheBall.Position.x + TheBall.tex.width / 2, TheBall.Position.y + TheBall.tex.height / 2 };
-		TheBall.Position += TheBall.Direction * GetFrameTime() * speed;
-		Player.Position += (MoveTo - Player.Position).getNormalized();
-
-		if (TheBall.Position.y >= GetScreenHeight() - TheBall.tex.height || TheBall.Position.y < 0)
+		//Timers
 		{
-			TheBall.Direction.y *= -1;
-			if(TheBall.Direction.x > 0)
-				TheBall.Direction.x -= 15 * GetFrameTime();
-			else
-				TheBall.Direction.x += 15 * GetFrameTime();
+			SpawnTimer -= GetFrameTime();
+			timer += GetFrameTime();
 		}
-		if (TheBall.Position.x >= GetScreenWidth() - TheBall.tex.width || TheBall.Position.x < 0)
-			TheBall.Direction.x *= -1;
 
-
-		if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+		if (Crazy)
 		{
-			TheBall.Direction = ((MoveTo = { (float)GetMouseX(), (float)GetMouseY() }) - TheBall.Center).getNormalized();
-			DrawLineEx({ TheBall.Center.x, TheBall.Center.y }, { MoveTo.x, MoveTo.y }, 5, RED);
-			int dist = (MoveTo - TheBall.Center).magnitude();
-			DrawText(std::to_string(dist).c_str(),
-				TheBall.Center.x + (MoveTo.x - TheBall.Center.x) / 2 - MeasureText(std::to_string(dist).c_str(),20) / 2,
-				TheBall.Center.y + (MoveTo.y - TheBall.Center.y) / 2, 20, WHITE);
+			for (int i = 0; i < Amount; i++)
+			{
+				TheBall[i].Center = { TheBall[i].Position.x + TheBall[i].tex.width / 2, TheBall[i].Position.y + TheBall[i].tex.height / 2 };
+				TheBall[i].Position += TheBall[i].Direction * GetFrameTime() * 50;
+
+				if (TheBall[i].Position.y >= GetScreenHeight() - TheBall[i].tex.height || TheBall[i].Position.y < 0)
+				{
+					TheBall[i].Direction.y *= -1;
+					if(TheBall[i].Direction.x > 0)
+						TheBall[i].Direction.x -= 15 * GetFrameTime();
+					else
+						TheBall[i].Direction.x += 15 * GetFrameTime();
+				}
+				if (TheBall[i].Position.x >= GetScreenWidth() - TheBall[i].tex.width || TheBall[i].Position.x < 0)
+					TheBall[i].Direction.x *= -1;
+
+
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					//TheBall[i].Direction = ((MoveTo = { (float)GetMouseX(), (float)GetMouseY() }) - TheBall[i].Center).getNormalized();
+					//DrawLineEx({ TheBall[i].Center.x, TheBall[i].Center.y }, { MoveTo.x, MoveTo.y }, 5, RED);
+					//int dist = (MoveTo - TheBall[i].Center).magnitude();
+					//DrawText(std::to_string(dist).c_str(),
+					//	TheBall[i].Center.x + (MoveTo.x - TheBall[i].Center.x) / 2 - MeasureText(std::to_string(dist).c_str(),20) / 2,
+					//	TheBall[i].Center.y + (MoveTo.y - TheBall[i].Center.y) / 2, 20, WHITE);
+				}
+				TheBall[i].Direction.y += 10 * GetFrameTime();
+
+
+				if (TheBall[i].Position.y > GetScreenHeight() - TheBall[i].tex.height)
+					TheBall[i].Position.y = GetScreenHeight() - TheBall[i].tex.height;
+				if (TheBall[i].Position.y < 0)
+					TheBall[i].Position.y = 0;
+			}
 		}
-		TheBall.Direction.y += 10 * GetFrameTime();
-		
+		if (!Crazy)
+		{
+			//Movement
+			{
+				Player.Position = { (float)GetMouseX() - Player.tex.width, (float)GetMouseY() - Player.tex.height };
+			}
 
-		if (TheBall.Position.y > GetScreenHeight() - TheBall.tex.height)
-			TheBall.Position.y = GetScreenHeight() - TheBall.tex.height;
-		if (TheBall.Position.y < 0)
-			TheBall.Position.y = 0;
+			//UpdateObjects
+			{
+				Player.Center = { (float)GetMouseX(), (float)GetMouseY()};
 
-		BeginDrawing();
-		ClearBackground(BLACK);
+				if (SpawnTimer < 0)
+				{
+					SpawnTimer = .2f;
+					for (int i = 0; i < Amount; i++)
+						if (TheBall[i].IsActive == false)
+						{
+							TheBall[i].IsActive = true;
+							break;
+						}
+				}
+				for (int i = 0; i < Amount; i++)
+					if (TheBall[i].IsActive)
+						TheBall[i].Update(Player.Center, timer, 0);
+				{
+					if (IsKeyDown(KEY_PAGE_UP))
+						for (int i = 0; i < Amount; i++)
+							TheBall[i].SpinSpeed += 1 * GetFrameTime();
+					if (IsKeyDown(KEY_PAGE_DOWN))
+						for (int i = 0; i < Amount; i++)
+							TheBall[i].SpinSpeed -= 1 * GetFrameTime();
+				}
+			}
 
-		DrawTexture(TheBall.tex, TheBall.Position.x, TheBall.Position.y, WHITE);
-		//DrawTexture(Player.tex, Player.Position.x, Player.Position.y, PURPLE);
+			//std::cout << TheBall.Forward.angleBetween((Player.Position - TheBall.Position).getNormalized()) * RAD2DEG << std::endl;
+			//if (IsKeyPressed(KEY_F) && TheBall.Forward.getNormalized().dot((Player.Position - TheBall.Position).getNormalized()) < 0) //&& Player.Position.getNormalized().dot(TheBall.Forward.getNormalized()) < 0)
+			//{
+			//	DrawBall = false;
+			//	
+			//}
+		}
+		//Draw
+		{
+			BeginDrawing();
+			ClearBackground(BLACK);
+
+			for (int i = 0; i < Amount; i++)
+				if (TheBall[i].IsActive)
+					DrawTextureEx(TheBall[i].tex, { TheBall[i].Position.x, TheBall[i].Position.y }, TheBall[i].Rotation, 1, WHITE);
+			DrawTexture(Player.tex, Player.Position.x, Player.Position.y, PURPLE);
+
+			EndDrawing();
+		}
 
 
-		EndDrawing();
+		if (IsKeyPressed(KEY_SPACE))
+		{
+			Crazy = !Crazy;
+			for (int i = 0; i < Amount; i++)
+				TheBall[i].Direction = { TheBall[i].SpinSpeed,1 };
+		}
 	}
-
 	CloseWindow();
 
 
@@ -86,3 +166,12 @@ int main()
 	assert(moveTowards(1, 5, 6) == 5);*/
 	return 0;
 }
+
+void Ball::Update(vec2 Origin, float Timer, int Offset)
+{
+	timer += GetFrameTime();
+	Position = { (Origin.x - tex.width / 2 + sin((timer * SpinSpeed) + Offset) * DistanceMultiplier),
+		(Origin.y - tex.height/2 + cos((timer * SpinSpeed) + Offset) * DistanceMultiplier)};
+}
+/*Position = { (Origin.x + sin(Timer * SpinSpeed* Offset) * DistanceMultiplier) + tex.width / 2 ,
+		(Origin.y + cos(Timer * SpinSpeed) * DistanceMultiplier* Offset) + tex.height / 2  };*/
