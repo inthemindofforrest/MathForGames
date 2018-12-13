@@ -21,15 +21,7 @@ float vec4::dot(const vec4 &rhs) const
 }
 vec4 vec4::cross(const vec4 & rhs) const
 {
-	//[ yz ][x z ][xy  ][xy  ]
-	//[ yz ][x z ][xy  ][xy  ]
-	vec4 temp{
-		y * rhs.z - z * rhs.y,
-		z * rhs.x - x * rhs.z,
-		x * rhs.y - y - rhs.x,
-	    0};
-	
-	return temp;
+	return {y * rhs.z - z * rhs.y,z * rhs.x - x * rhs.z,x * rhs.y - y - rhs.x,0};
 }
 vec4 & vec4::normalize()
 {
@@ -74,19 +66,11 @@ vec4 vec4::operator/(const float rhs) const
 }
 vec4 & vec4::operator+=(const vec4 & rhs)
 {
-	x += rhs.x;
-	y += rhs.y;
-	z += rhs.z;
-	w += rhs.w;
-	return *this;
+	return (*this = { x += rhs.x,y += rhs.y,z += rhs.z,w += rhs.w });
 }
 vec4 & vec4::operator-=(const vec4 & rhs)
 {
-	x -= rhs.x;
-	y -= rhs.y;
-	z -= rhs.z;
-	w -= rhs.w;
-	return *this;
+	return (*this = { x -= rhs.x, y -= rhs.y, z -= rhs.z, w -= rhs.w });
 }
 vec4 & vec4::operator*=(const float rhs)
 {

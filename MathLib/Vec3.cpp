@@ -22,12 +22,7 @@ vec3 vec3::cross(const vec3 & rhs) const
 {
 	//[ yz][x z][xy ]
 	//[ yz][x z][xy ]
-	vec3 temp{
-		y * rhs.z - z * rhs.y,
-		z * rhs.x - x * rhs.z,
-		x * rhs.y - y - rhs.x };
-	
-	return temp;
+	return {y * rhs.z - z * rhs.y,z * rhs.x - x * rhs.z,x * rhs.y - y - rhs.x };
 }
 vec3::operator float*()
 {
@@ -71,17 +66,11 @@ vec3 vec3::operator/(const float rhs) const
 }
 vec3 & vec3::operator+=(const vec3 & rhs)
 {
-	x += rhs.x;
-	y += rhs.y;
-	z += rhs.z;
-	return *this;
+	return (*this = {x += rhs.x, y += rhs.y, z += rhs.z});
 }
 vec3 & vec3::operator-=(const vec3 & rhs)
 {
-	x -= rhs.x;
-	y -= rhs.y;
-	z -= rhs.z;
-	return *this;
+	return (*this = { x -= rhs.x, y -= rhs.y, z -= rhs.z });
 }
 vec3 & vec3::operator*=(const float rhs)
 {
@@ -93,7 +82,7 @@ vec3 & vec3::operator/=(const float rhs)
 }
 bool vec3::operator==(const vec3 &rhs) const
 {
-	vec3 temp = *this - rhs;
+	vec3 temp = *this - rhs; 
 	return (fAbs(temp.x) < (FLT_EPSILON * 10) && fAbs(temp.y) < (FLT_EPSILON * 10) && fAbs(temp.z) < (FLT_EPSILON * 10));
 }
 bool vec3::operator!=(const vec3 &rhs) const

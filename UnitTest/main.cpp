@@ -1,10 +1,14 @@
 #include <iostream>
+#include "Utils.h"
 #include "Vec2.h"
-#include "raylib.h"
-#include <string>
-#include <cassert>
+#include "Vec3.h"
+#include "Vec4.h"
 
-struct Ball
+#define ENABLE_HALT_ON_FAILURE 1
+#include "Macros.h"
+
+
+/*struct Ball
 {
 	Texture2D tex;
 	vec2 Position{100,100};
@@ -163,7 +167,7 @@ int main()
 	assert(pow(3, 3) == 27);
 	assert(isPowerOfTwo(64) == true);
 	assert(nextPowerOfTwo(14) == 16);
-	assert(moveTowards(1, 5, 6) == 5);*/
+	assert(moveTowards(1, 5, 6) == 5);
 	return 0;
 }
 
@@ -175,3 +179,39 @@ void Ball::Update(vec2 Origin, float Timer, int Offset)
 }
 /*Position = { (Origin.x + sin(Timer * SpinSpeed* Offset) * DistanceMultiplier) + tex.width / 2 ,
 		(Origin.y + cos(Timer * SpinSpeed) * DistanceMultiplier* Offset) + tex.height / 2  };*/
+
+int main()
+{
+
+
+	//Utils
+	{
+		assert("true is true", true);
+		assert("the opposite of false is true", !false);
+		assert("1+1=2", 1 + 1 == 2);
+		assert("1+2=4", 1 + 2 == 4);
+
+
+		assert("sum I", 3, sum(1, 2));
+		assert("sum II", 5, sum(2, 3));
+		assert("min", 3, min(3, 7));
+		assert("max", 7, max(3, 7));
+		assert("clamp", 5, clamp(5, 3, 7));
+
+
+		vec3 a = { 2, 2, 2 };
+		vec3 b = { 1, 1, 1 };
+		vec3 diff = a - b;
+
+		assert("diff x", 1.0f, diff.x, 0.0001f);
+		assert("diff y", 1.0f, diff.y, 0.0001f);
+		assert("diff z", 1.0f, diff.z, 0.0001f);
+	}
+	//Vec2
+	{
+		
+	}
+
+
+	return 0;
+}
