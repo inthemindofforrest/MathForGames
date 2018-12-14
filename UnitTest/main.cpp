@@ -1,31 +1,10 @@
-#include <iostream>
-#include "Utils.h"
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Vec4.h"
+#include "Ball.h"
+#include "ParticleSpawner.h"
 
-#define ENABLE_HALT_ON_FAILURE 1
-#include "Macros.h"
+#include <time.h>
 
 
-/*struct Ball
-{
-	Texture2D tex;
-	vec2 Position{100,100};
-	vec2 Forward{ 0,-1 };
-	vec2 Right{ 1,0 };
-	vec2 Direction{1,1};
-	vec2 Center;
-	bool IsActive = false;
-	float Rotation;
-	float timer = 0;
-
-	float DistanceMultiplier = 50;
-	float SpinSpeed = 3;
-
-	void Update(vec2 Origin, float Timer, int Offset);
-};
-
+/*
 int main()
 {
 	int screenWidth = 800;
@@ -182,10 +161,41 @@ void Ball::Update(vec2 Origin, float Timer, int Offset)
 
 int main()
 {
+	srand(time(NULL));
 
+	int screenWidth = 800;
+	int screenHeight = 450;
+
+	InitWindow(screenWidth, screenHeight, "YES!");
+	SetTargetFPS(60);
+
+	float timer = 0;
+
+
+	Rectangle p0{ 0, 300,30,30 }, p1{ 300, 200,30,30 }, p2{ 100, 50,30,30 };
+	bool p0Grabbed = false, p1Grabbed = false, p2Grabbed = false;
+	Ball Player;
+	std::vector<vec2> Lines;
+	std::vector<Color>LineColors;
+	Player.tex = LoadTexture("Ball.png");
+	Player.Position = {p0.x, p0.y};
+
+	Color LineColor = BLACK;
+
+	int turn = 0;
+
+	/*ParticleSpawner newSpawner;
+	Ball Player;
+	Rectangle Button{200,200,200,50};
+	Color ButtonColor = GREEN;
+
+	float timer = 0;
+
+	Player.tex = LoadTexture("Ball.png");
+	Player.speed = .5f;*/
 
 	//Utils
-	{
+	/*{
 		assert("true is true", true);
 		assert("the opposite of false is true", !false);
 		assert("1+1=2", 1 + 1 == 2);
@@ -206,12 +216,142 @@ int main()
 		assert("diff x", 1.0f, diff.x, 0.0001f);
 		assert("diff y", 1.0f, diff.y, 0.0001f);
 		assert("diff z", 1.0f, diff.z, 0.0001f);
-	}
-	//Vec2
-	{
-		
-	}
+	}*/
 
+	while (!WindowShouldClose())
+	{
+		/*Player.Update();
+		newSpawner.Update();
+
+		if (IsKeyPressed(KEY_SPACE))
+			newSpawner.AddParticle(Player.Position);
+		timer += GetFrameTime();
+
+		if (CheckCollisionPointRec(GetMousePosition(), Button))
+		{
+			ButtonColor.b = lerp(ButtonColor.b, (unsigned char)0, timer );
+			ButtonColor.g = lerp(ButtonColor.g, (unsigned char)0, timer);
+			ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
+			if (ButtonColor.r == 255)
+				timer = 0;
+		}
+		else
+		{
+			ButtonColor.b = lerp(ButtonColor.b, (unsigned char)255, timer);
+			ButtonColor.g = lerp(ButtonColor.g, (unsigned char)255, timer);
+			ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
+			if (ButtonColor.r == 255 && ButtonColor.b == 255)
+				timer = 0;
+		}*/
+		timer += GetFrameTime();
+		if (turn == 0)
+		{
+			Player.Position = { quadraticBezier(p0.x, p2.x, p1.x, timer * .75f), quadraticBezier(p0.y, p2.y, p1.y, timer * .75f) };
+			if (abs(Player.Position.x - p1.x) <= 1 && abs(Player.Position.y - p1.y) <= 1)
+			{
+				turn = 1;
+				timer = 0;
+			}
+		}
+		else if (turn == 1)
+		{
+			Player.Position = { quadraticBezier(p1.x, p0.x, p2.x, timer * .75f), quadraticBezier(p1.y, p0.y, p2.y, timer * .75f) };
+			if (abs(Player.Position.x - p2.x) <= 1 && abs(Player.Position.y - p2.y) <= 1)
+			{
+				turn = 2;
+				timer = 0;
+			}
+		}
+		else
+		{
+			Player.Position = { quadraticBezier(p2.x, p1.x, p0.x, timer * .75f), quadraticBezier(p2.y, p1.y, p0.y, timer * .75f) };
+			if (abs(Player.Position.x - p0.x) <= 1 && abs(Player.Position.y - p0.y) <= 1)
+			{
+				turn = 0;
+				timer = 0;
+			}
+		}
+
+
+		//if (timer - (int)timer < 2)
+		//{
+
+		Lines.push_back(Player.Position);
+		LineColors.push_back(LineColor);
+		//}
+
+
+		if (CheckCollisionPointRec(GetMousePosition(), p0) &&
+			IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+			p0Grabbed == p1Grabbed == p2Grabbed == false)
+		{
+			p0Grabbed = true;
+		}
+		if (CheckCollisionPointRec(GetMousePosition(), p1) &&
+			IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+			p0Grabbed == p1Grabbed == p2Grabbed == false)
+		{
+			p1Grabbed = true;
+		}
+		if (CheckCollisionPointRec(GetMousePosition(), p2) &&
+			IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+			p0Grabbed == p1Grabbed == p2Grabbed == false)
+		{
+			p2Grabbed = true;
+		}
+
+		if (p0Grabbed)
+		{
+			p0.x = GetMouseX() - 15;
+			p0.y = GetMouseY() - 15;
+		}
+		if (p1Grabbed)
+		{
+			p1.x = GetMouseX() - 15;
+			p1.y = GetMouseY() - 15;
+		}
+		if (p2Grabbed)
+		{
+			p2.x = GetMouseX() - 15;
+			p2.y = GetMouseY() - 15;
+		}
+
+		if (IsMouseButtonUp(MOUSE_LEFT_BUTTON))
+			p0Grabbed = p1Grabbed = p2Grabbed = false;
+
+		//std::cout << Player.Position.x << "," << Player.Position.y << std::endl;
+
+		{
+			if (LineColor.r < 255 && LineColor.b == 0 && LineColor.g == 0)
+				LineColor.r++;
+			else if (LineColor.r >= 255 && LineColor.b < 255 && LineColor.g == 0)
+				LineColor.b++;
+			else if (LineColor.r >= 255 && LineColor.b >= 255 && LineColor.g < 255)
+				LineColor.g++;
+			else if (LineColor.r > 0)
+				LineColor.r--;
+			else if (LineColor.b > 0)
+				LineColor.b--;
+			else if (LineColor.g > 0)
+				LineColor.g--;
+		}
+		BeginDrawing();
+		
+
+		DrawRectangle(p1.x, p1.y, p1.width, p1.height, WHITE);
+		DrawRectangle(p2.x, p2.y, p2.width, p2.height, WHITE);
+		DrawRectangle(p0.x, p0.y, p0.width, p2.height, WHITE);
+		ClearBackground(BLACK);
+		if (Lines.size() > 2)
+			for (int i = 0; i < Lines.size() - 2; i++)
+				DrawLineEx({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i + 1].y }, 20, LineColors[i]);
+		//Player.Draw();
+		//newSpawner.Draw();
+		//DrawRectangleRec(Button, ButtonColor);
+
+		EndDrawing();
+	}
+	CloseWindow();
 
 	return 0;
 }
