@@ -25,3 +25,4 @@ int nextPowerOfTwo(int val);
 
 float moveTowards(float current, float target, float maxDelta);
 
+

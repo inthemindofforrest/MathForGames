@@ -39,7 +39,7 @@ void Ball::Draw()
 	DrawTexture(tex, Position.x, Position.y, WHITE);
 	for (int i = 0; i < newPosition.size(); i++)
 		DrawTexture(tex, newPosition[i].x, newPosition[i].y, GRAY);
-	DrawRectangle(10, 10, (int)((health / 100) * (GetScreenWidth() - 20)), 40, RED);
-	DrawRectangle(10, 10, (int)((LerpHealth / 100) * (GetScreenWidth() - 20)), 40, GREEN);
-	DrawRectangleLinesEx({10,10,(float)GetScreenWidth() - 20, 40},5, WHITE);
+	//DrawRectangle(10, 10, (int)((health / 100) * (GetScreenWidth() - 20)), 40, RED);
+	//DrawRectangle(10, 10, (int)((LerpHealth / 100) * (GetScreenWidth() - 20)), 40, GREEN);
+	//DrawRectangleLinesEx({10,10,(float)GetScreenWidth() - 20, 40},5, WHITE);
 }
