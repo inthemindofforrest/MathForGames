@@ -36,7 +36,7 @@ vec3 transform3d::forward() const
 }
 void transform3d::setForward(const vec3 & newForward)
 {
-
+	setLocalRotation(newForward);
 }
 vec3 transform3d::right() const
 {
@@ -44,6 +44,7 @@ vec3 transform3d::right() const
 }
 void transform3d::setRight(const vec3 & newRight)
 {
+	setLocalRotation(newRight);
 }
 vec3 transform3d::up() const
 {
@@ -51,6 +52,7 @@ vec3 transform3d::up() const
 }
 void transform3d::setUp(const vec3 & newUp)
 {
+	setLocalRotation(newUp);
 }
 void transform3d::translate(const vec3 & offset)
 {
@@ -61,7 +63,4 @@ void transform3d::rotate(const vec3 & rot)
 	trsMatrix.set(trsMatrix * trsMatrix.rotation(rot.x, 0));
 	trsMatrix.set(trsMatrix * trsMatrix.rotation(rot.y, 1));
 	trsMatrix.set(trsMatrix * trsMatrix.rotation(rot.z, 2));
-}
-void transform3d::lookAt(const transform3d & target)
-{
 }

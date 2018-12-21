@@ -23,8 +23,6 @@ struct transform3d
 	void translate(const vec3& offset);
 	void rotate(const vec3 &rot);
 
-	void lookAt(const transform3d &target);
-
 private:
 	mat4 trsMatrix;
 };

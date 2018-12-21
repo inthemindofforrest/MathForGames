@@ -1,5 +1,7 @@
 #pragma once
 #include "Vec2.h"
+#include <iostream>
+#include <vector>
 #include "Matrix3.h"
 struct transform2d
 {
@@ -14,8 +16,22 @@ struct transform2d
 	void translate(const vec2& offset);
 	void rotate(const float angle);
 
+	vec2 worldPosition() const;
+	float worldRotation() const;
+	vec2 worldScale() const;
+
+	void setParent(transform2d *_parent);
+	transform2d *getParent() const;
+
+	void addChild(transform2d * child);
+	transform2d *getChildren() const;
+	size_t getChildrenCount() const;
+
 private:
 	mat3 trsMatrix;
+
+	transform2d * parent;
+	std::vector<transform2d *> children;
 	//[posx][posy][posz]
 	//[rotx][roty][rotz]
 	//[scax][scay][scaz]
