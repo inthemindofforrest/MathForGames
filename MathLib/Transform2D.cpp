@@ -28,7 +28,7 @@ void transform2d::setLocalScale(const vec2 & newScale)
 }
 void transform2d::translate(const vec2 & offset)
 {
-	trsMatrix.set(trsMatrix.translation(offset.x, offset.y));
+	trsMatrix.set(trsMatrix.translation(offset));
 }
 void transform2d::rotate(const float angle)
 {

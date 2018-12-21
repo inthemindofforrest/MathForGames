@@ -13,18 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Vectors">
+      <UniqueIdentifier>{a168871d-e8ce-482b-8bff-96453ad62ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Matrix">
+      <UniqueIdentifier>{e1ba59ef-2309-4f2f-a531-7dc6fad827c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Matrix">
+      <UniqueIdentifier>{4d17552e-90d2-41c0-aef7-5f13ed44a3ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Vectors">
+      <UniqueIdentifier>{b556bfb0-71cc-4de0-bfd9-6098a12e74b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LinearInterpolation.h">
@@ -33,33 +36,54 @@
     <ClInclude Include="Rand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Header Files\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Header Files\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec4.h">
+      <Filter>Header Files\Vectors</Filter>
+    </ClInclude>
     <ClInclude Include="Matrix3.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4.h">
+      <Filter>Header Files\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="Transform2D.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3D.h">
+      <Filter>Header Files\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vec3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vec4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Rand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Matrix3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Source Files\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3.cpp">
+      <Filter>Source Files\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec4.cpp">
+      <Filter>Source Files\Vectors</Filter>
     </ClCompile>
     <ClCompile Include="Transform2D.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
