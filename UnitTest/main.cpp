@@ -2,6 +2,7 @@
 //#include "ParticleSpawner.h"
 #include "Rand.h"
 #include <time.h>
+#include "Matrix3.h"
 
 
 /*
@@ -163,32 +164,32 @@ int main()
 {
 	//srand(time(NULL));
 
-	int screenWidth = 1920;
-	int screenHeight = 1080;
+	//int screenWidth = 1920;
+	//int screenHeight = 1080;
 
-	InitWindow(screenWidth, screenHeight, "no.... no... no");
-	SetTargetFPS(60);
-	std::vector<vec2> Lines;
-	std::vector<Color>LineColors;
-	std::vector<int> SizeOfLine;
+	//InitWindow(screenWidth, screenHeight, "no.... no... no");
+	//SetTargetFPS(60);
+	//std::vector<vec2> Lines;
+	//std::vector<Color>LineColors;
+	//std::vector<int> SizeOfLine;
 
 
-	float timer = 0;
-	Color LineColor = BLACK;
+	//float timer = 0;
+	//Color LineColor = BLACK;
 
-	/*Rectangle p0{ 0, 300,30,30 }, p1{ 300, 200,30,30 }, p2{ 100, 50,30,30 };
-	bool p0Grabbed = false, p1Grabbed = false, p2Grabbed = false;
-	Ball Player;
-	
-	Player.tex = LoadTexture("Ball.png");
-	Player.Position = {p0.x, p0.y};
+	///*Rectangle p0{ 0, 300,30,30 }, p1{ 300, 200,30,30 }, p2{ 100, 50,30,30 };
+	//bool p0Grabbed = false, p1Grabbed = false, p2Grabbed = false;
+	//Ball Player;
+	//
+	//Player.tex = LoadTexture("Ball.png");
+	//Player.Position = {p0.x, p0.y};
 
-	
+	//
 
-	int turn = 0;*/
-	RandomNumber num;
-	Ball Player;
-	Player.tex = LoadTexture("Ball.png");
+	//int turn = 0;*/
+	//RandomNumber num;
+	//Ball Player;
+	//Player.tex = LoadTexture("Ball.png");
 	/*ParticleSpawner newSpawner;
 	
 	Rectangle Button{200,200,200,50};
@@ -225,34 +226,34 @@ int main()
 	
 
 
-	while (!WindowShouldClose())
-	{
-		int sizelinesize = num.rand(50, 200);
-		/*Player.Update();
-		newSpawner.Update();
+	//while (!WindowShouldClose())
+	//{
+	//	int sizelinesize = num.rand(50, 200);
+	//	/*Player.Update();
+	//	newSpawner.Update();
 
-		if (IsKeyPressed(KEY_SPACE))
-			newSpawner.AddParticle(Player.Position);
-		timer += GetFrameTime();
+	//	if (IsKeyPressed(KEY_SPACE))
+	//		newSpawner.AddParticle(Player.Position);
+	//	timer += GetFrameTime();
 
-		if (CheckCollisionPointRec(GetMousePosition(), Button))
-		{
-			ButtonColor.b = lerp(ButtonColor.b, (unsigned char)0, timer );
-			ButtonColor.g = lerp(ButtonColor.g, (unsigned char)0, timer);
-			ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
-			if (ButtonColor.r == 255)
-				timer = 0;
-		}
-		else
-		{
-			ButtonColor.b = lerp(ButtonColor.b, (unsigned char)255, timer);
-			ButtonColor.g = lerp(ButtonColor.g, (unsigned char)255, timer);
-			ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
-			if (ButtonColor.r == 255 && ButtonColor.b == 255)
-				timer = 0;
-		}*/
-		timer += GetFrameTime();
-		//if (turn == 0)
+	//	if (CheckCollisionPointRec(GetMousePosition(), Button))
+	//	{
+	//		ButtonColor.b = lerp(ButtonColor.b, (unsigned char)0, timer );
+	//		ButtonColor.g = lerp(ButtonColor.g, (unsigned char)0, timer);
+	//		ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
+	//		if (ButtonColor.r == 255)
+	//			timer = 0;
+	//	}
+	//	else
+	//	{
+	//		ButtonColor.b = lerp(ButtonColor.b, (unsigned char)255, timer);
+	//		ButtonColor.g = lerp(ButtonColor.g, (unsigned char)255, timer);
+	//		ButtonColor.r = lerp(ButtonColor.r, (unsigned char)255, timer);
+	//		if (ButtonColor.r == 255 && ButtonColor.b == 255)
+	//			timer = 0;
+	//	}*/
+	//	timer += GetFrameTime();
+	//	//if (turn == 0)
 		//{
 		//	Player.Position = { quadraticBezier(p0.x, p2.x, p1.x, timer * .75f), quadraticBezier(p0.y, p2.y, p1.y, timer * .75f) };
 		//	if (abs(Player.Position.x - p1.x) <= 1 && abs(Player.Position.y - p1.y) <= 1)
@@ -284,132 +285,145 @@ int main()
 		//if (timer - (int)timer < 2)
 		//{
 
-		Lines.push_back(Player.Position);
-		LineColors.push_back(LineColor);
-		SizeOfLine.push_back(sizelinesize);
-		//}
+	//	Lines.push_back(Player.Position);
+	//	LineColors.push_back(LineColor);
+	//	SizeOfLine.push_back(sizelinesize);
+	//	//}
 
-		num.seedRand(time(NULL));
-		int MinNu = num.rand(50,100);
-		int MaxNu = num.rand(101, 150);
-		Player.Position += {num.rand(0,100) < 50 ? (float)num.rand(MinNu, MaxNu) : -(float)num.rand(MinNu, MaxNu), num.rand(0, 100) < 50 ? (float)num.rand(MinNu, MaxNu) : -(float)num.rand(MinNu, MaxNu)};
+	//	num.seedRand(time(NULL));
+	//	int MinNu = num.rand(50,100);
+	//	int MaxNu = num.rand(101, 150);
+	//	Player.Position += {num.rand(0,100) < 50 ? (float)num.rand(MinNu, MaxNu) : -(float)num.rand(MinNu, MaxNu), num.rand(0, 100) < 50 ? (float)num.rand(MinNu, MaxNu) : -(float)num.rand(MinNu, MaxNu)};
 
 
-		/*if (Player.Position.x < 0)
-			Player.Position.x = 0;
-		if (Player.Position.y < 0)
-			Player.Position.y = 0;
-		if (Player.Position.x > GetScreenWidth() - 10)
-			Player.Position.x = GetScreenWidth() - 10;
-		if (Player.Position.y > GetScreenHeight() - 10)
-			Player.Position.y = GetScreenHeight() - 10;*/
-		if (Player.Position.y > GetScreenHeight() + 10 || Player.Position.y < 0)
-			Player.Position.y = GetScreenHeight() / 2;
-		if (Player.Position.x > GetScreenWidth() + 10 || Player.Position.x < 0)
-			Player.Position.x = GetScreenWidth() / 2;
-		/*if (Player.Position.y >= GetScreenHeight() + 10 || Player.Position.y <= 0)
-			Player.Position.y *= -1;
-		if (Player.Position.x >= GetScreenWidth() + 10 || Player.Position.x <= 0)
-			Player.Position.x *= -1; */
+	//	/*if (Player.Position.x < 0)
+	//		Player.Position.x = 0;
+	//	if (Player.Position.y < 0)
+	//		Player.Position.y = 0;
+	//	if (Player.Position.x > GetScreenWidth() - 10)
+	//		Player.Position.x = GetScreenWidth() - 10;
+	//	if (Player.Position.y > GetScreenHeight() - 10)
+	//		Player.Position.y = GetScreenHeight() - 10;*/
+	//	if (Player.Position.y > GetScreenHeight() + 10 || Player.Position.y < 0)
+	//		Player.Position.y = GetScreenHeight() / 2;
+	//	if (Player.Position.x > GetScreenWidth() + 10 || Player.Position.x < 0)
+	//		Player.Position.x = GetScreenWidth() / 2;
+	//	/*if (Player.Position.y >= GetScreenHeight() + 10 || Player.Position.y <= 0)
+	//		Player.Position.y *= -1;
+	//	if (Player.Position.x >= GetScreenWidth() + 10 || Player.Position.x <= 0)
+	//		Player.Position.x *= -1; */
 
-		//if (CheckCollisionPointRec(GetMousePosition(), p0) &&
-		//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-		//	p0Grabbed == p1Grabbed == p2Grabbed == false)
-		//{
-		//	p0Grabbed = true;
-		//}
-		//if (CheckCollisionPointRec(GetMousePosition(), p1) &&
-		//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-		//	p0Grabbed == p1Grabbed == p2Grabbed == false)
-		//{
-		//	p1Grabbed = true;
-		//}
-		//if (CheckCollisionPointRec(GetMousePosition(), p2) &&
-		//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-		//	p0Grabbed == p1Grabbed == p2Grabbed == false)
-		//{
-		//	p2Grabbed = true;
-		//}
+	//	//if (CheckCollisionPointRec(GetMousePosition(), p0) &&
+	//	//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+	//	//	p0Grabbed == p1Grabbed == p2Grabbed == false)
+	//	//{
+	//	//	p0Grabbed = true;
+	//	//}
+	//	//if (CheckCollisionPointRec(GetMousePosition(), p1) &&
+	//	//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+	//	//	p0Grabbed == p1Grabbed == p2Grabbed == false)
+	//	//{
+	//	//	p1Grabbed = true;
+	//	//}
+	//	//if (CheckCollisionPointRec(GetMousePosition(), p2) &&
+	//	//	IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
+	//	//	p0Grabbed == p1Grabbed == p2Grabbed == false)
+	//	//{
+	//	//	p2Grabbed = true;
+	//	//}
 
-		//if (p0Grabbed)
-		//{
-		//	p0.x = GetMouseX() - 15;
-		//	p0.y = GetMouseY() - 15;
-		//}
-		//if (p1Grabbed)
-		//{
-		//	p1.x = GetMouseX() - 15;
-		//	p1.y = GetMouseY() - 15;
-		//}
-		//if (p2Grabbed)
-		//{
-		//	p2.x = GetMouseX() - 15;
-		//	p2.y = GetMouseY() - 15;
-		//}
+	//	//if (p0Grabbed)
+	//	//{
+	//	//	p0.x = GetMouseX() - 15;
+	//	//	p0.y = GetMouseY() - 15;
+	//	//}
+	//	//if (p1Grabbed)
+	//	//{
+	//	//	p1.x = GetMouseX() - 15;
+	//	//	p1.y = GetMouseY() - 15;
+	//	//}
+	//	//if (p2Grabbed)
+	//	//{
+	//	//	p2.x = GetMouseX() - 15;
+	//	//	p2.y = GetMouseY() - 15;
+	//	//}
 
-		//if (IsMouseButtonUp(MOUSE_LEFT_BUTTON))
-		//	p0Grabbed = p1Grabbed = p2Grabbed = false;
+	//	//if (IsMouseButtonUp(MOUSE_LEFT_BUTTON))
+	//	//	p0Grabbed = p1Grabbed = p2Grabbed = false;
 
-		////std::cout << Player.Position.x << "," << Player.Position.y << std::endl;
+	//	////std::cout << Player.Position.x << "," << Player.Position.y << std::endl;
 
-		if (Lines.size() > 25000)
-		{
-			for (int i = 0; i < Lines.size() - 1; i++)
-			{
-				Lines[i] = Lines[i + 1];
-				LineColors[i] = LineColors[i + 1];
-				SizeOfLine[i] = SizeOfLine[i + 1];
-			}
-			Lines.pop_back();
-			LineColors.pop_back();
-			SizeOfLine.pop_back();
-		}
-		{
-			/*if (LineColor.r < 255 && LineColor.b == 0 && LineColor.g == 0)
-				LineColor.r++;
-			else if (LineColor.r >= 255 && LineColor.b < 255 && LineColor.g == 0)
-				LineColor.b++;
-			else if (LineColor.r >= 255 && LineColor.b >= 255 && LineColor.g < 255)
-				LineColor.g++;
-			else if (LineColor.r > 0)
-				LineColor.r--;
-			else if (LineColor.b > 0)
-				LineColor.b--;
-			else if (LineColor.g > 0)
-				LineColor.g--;*/
-			LineColor = { (unsigned char)num.rand(0,255) ,(unsigned char)num.rand(0,255),(unsigned char)num.rand(0,255),(unsigned char)num.rand(0,255) };
-		}
-		BeginDrawing();
-		ClearBackground(BLACK);
+	//	if (Lines.size() > 25000)
+	//	{
+	//		for (int i = 0; i < Lines.size() - 1; i++)
+	//		{
+	//			Lines[i] = Lines[i + 1];
+	//			LineColors[i] = LineColors[i + 1];
+	//			SizeOfLine[i] = SizeOfLine[i + 1];
+	//		}
+	//		Lines.pop_back();
+	//		LineColors.pop_back();
+	//		SizeOfLine.pop_back();
+	//	}
+	//	{
+	//		/*if (LineColor.r < 255 && LineColor.b == 0 && LineColor.g == 0)
+	//			LineColor.r++;
+	//		else if (LineColor.r >= 255 && LineColor.b < 255 && LineColor.g == 0)
+	//			LineColor.b++;
+	//		else if (LineColor.r >= 255 && LineColor.b >= 255 && LineColor.g < 255)
+	//			LineColor.g++;
+	//		else if (LineColor.r > 0)
+	//			LineColor.r--;
+	//		else if (LineColor.b > 0)
+	//			LineColor.b--;
+	//		else if (LineColor.g > 0)
+	//			LineColor.g--;*/
+	//		LineColor = { (unsigned char)num.rand(0,255) ,(unsigned char)num.rand(0,255),(unsigned char)num.rand(0,255),(unsigned char)num.rand(0,255) };
+	//	}
+	//	BeginDrawing();
+	//	ClearBackground(BLACK);
 
-		/*DrawRectangle(p1.x, p1.y, p1.width, p1.height, WHITE);
-		DrawRectangle(p2.x, p2.y, p2.width, p2.height, WHITE);
-		DrawRectangle(p0.x, p0.y, p0.width, p2.height, WHITE);
-		*/
-		
-		if (Lines.size() > 2)
-			for (int i = 0; i < Lines.size() - 3; i++)
-			{
-				DrawLineEx({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i + 1].y }, SizeOfLine[i]/4, LineColors[i]);
-				DrawText(std::to_string(i).c_str(), Lines[i].x, Lines[i].y, SizeOfLine[i], LineColors[i]);
-				DrawCircle(Lines[i].x, Lines[i].y, SizeOfLine[i]/2, LineColors[i]);
-				DrawRectangleLinesEx({ (float)(Lines[i].x - SizeOfLine[i] / 2), (float)(Lines[i].y - SizeOfLine[i] / 2),(float)SizeOfLine[i],(float)SizeOfLine[i] }, 10, LineColors[i]);
-				Texture2D ballt = LoadTexture("Ball.png");
-				DrawTextureEx(ballt, { Lines[i].x - ballt.width / 2, Lines[i].y - ballt.height / 2}, 0, SizeOfLine[i] / 10, LineColors[i]);
-				DrawLineEx({ Lines[i + 1].x, Lines[i+ 1].y }, { Lines[Lines.size() - 1].x, Lines[Lines.size() - 1].y }, SizeOfLine[i] / 4, LineColors[i]);
-				DrawCircleGradient(Lines[i].x, Lines[i].y, SizeOfLine[i] / 2, LineColors[i], { LineColors[i].b,LineColors[i].r, LineColors[i].b, LineColors[i].a });
-				DrawLineBezier({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i + 1].y }, SizeOfLine[i] / 4, LineColors[i]);
-				DrawPixel(Lines[i].x, Lines[i].y, LineColors[i]);
-				DrawTriangle({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i+ 1].y }, { Lines[i+ 2].x, Lines[i+ 2].y }, LineColors[i]);
-				DrawFPS(Lines[i].x, Lines[i].y);
-			}
-		//Player.Draw();
-		//newSpawner.Draw();
-		//DrawRectangleRec(Button, ButtonColor);
+	//	/*DrawRectangle(p1.x, p1.y, p1.width, p1.height, WHITE);
+	//	DrawRectangle(p2.x, p2.y, p2.width, p2.height, WHITE);
+	//	DrawRectangle(p0.x, p0.y, p0.width, p2.height, WHITE);
+	//	*/
+	//	
+	//	if (Lines.size() > 2)
+	//		for (int i = 0; i < Lines.size() - 3; i++)
+	//		{
+	//			DrawLineEx({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i + 1].y }, SizeOfLine[i]/4, LineColors[i]);
+	//			DrawText(std::to_string(i).c_str(), Lines[i].x, Lines[i].y, SizeOfLine[i], LineColors[i]);
+	//			DrawCircle(Lines[i].x, Lines[i].y, SizeOfLine[i]/2, LineColors[i]);
+	//			DrawRectangleLinesEx({ (float)(Lines[i].x - SizeOfLine[i] / 2), (float)(Lines[i].y - SizeOfLine[i] / 2),(float)SizeOfLine[i],(float)SizeOfLine[i] }, 10, LineColors[i]);
+	//			Texture2D ballt = LoadTexture("Ball.png");
+	//			DrawTextureEx(ballt, { Lines[i].x - ballt.width / 2, Lines[i].y - ballt.height / 2}, 0, SizeOfLine[i] / 10, LineColors[i]);
+	//			DrawLineEx({ Lines[i + 1].x, Lines[i+ 1].y }, { Lines[Lines.size() - 1].x, Lines[Lines.size() - 1].y }, SizeOfLine[i] / 4, LineColors[i]);
+	//			DrawCircleGradient(Lines[i].x, Lines[i].y, SizeOfLine[i] / 2, LineColors[i], { LineColors[i].b,LineColors[i].r, LineColors[i].b, LineColors[i].a });
+	//			DrawLineBezier({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i + 1].y }, SizeOfLine[i] / 4, LineColors[i]);
+	//			DrawPixel(Lines[i].x, Lines[i].y, LineColors[i]);
+	//			DrawTriangle({ Lines[i].x, Lines[i].y }, { Lines[i + 1].x, Lines[i+ 1].y }, { Lines[i+ 2].x, Lines[i+ 2].y }, LineColors[i]);
+	//			DrawFPS(Lines[i].x, Lines[i].y);
+	//		}
+	//	//Player.Draw();
+	//	//newSpawner.Draw();
+	//	//DrawRectangleRec(Button, ButtonColor);
 
-		EndDrawing();
-	}
-	CloseWindow();
+	//	EndDrawing();
+	//}
+	//CloseWindow();
+	
+mat3 First(1, 0, 0, 
+		   0, 2, 0, 
+		   0, 0, 1);
+mat3 Second(9, 8, 7, 
+			6, 5, 4, 
+			3, 2, 1);
 
+vec3 testVec2 = { 5, 3, 5 };
+
+vec3 test = (First * testVec2);
+
+	
+	
 	return 0;
 }

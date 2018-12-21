@@ -120,14 +120,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="LinearInterpolation.h" />
+    <ClInclude Include="Matrix3.h" />
     <ClInclude Include="Rand.h" />
+    <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Matrix3.cpp" />
     <ClCompile Include="Rand.cpp" />
+    <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />

@@ -43,7 +43,7 @@ vec2::operator const float*() const
 }
 float vec2::angleBetween(const vec2 & rhs) const
 {
-	return(dot(rhs) / (magnitude() * rhs.magnitude()));
+	return acos(dot(rhs) / (magnitude() * rhs.magnitude()));
 }
 vec2 vec2::getPerpCW() const
 {
