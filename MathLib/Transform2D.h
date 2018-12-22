@@ -27,6 +27,8 @@ struct transform2d
 	transform2d *getChildren() const;
 	size_t getChildrenCount() const;
 
+
+
 private:
 	mat3 trsMatrix;
 

@@ -37,17 +37,17 @@ void transform2d::rotate(const float angle)
 
 vec2 transform2d::worldPosition() const
 {
-	return vec2();
+	return parent->localPosition();
 }
 
 float transform2d::worldRotation() const
 {
-	return 0.0f;
+	return parent->localRotation();
 }
 
 vec2 transform2d::worldScale() const
 {
-	return vec2();
+	return parent->localScale();
 }
 
 void transform2d::setParent(transform2d * _parent)
