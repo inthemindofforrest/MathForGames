@@ -13,36 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\NonSense">
+      <UniqueIdentifier>{8d518a4c-73d5-4d6e-a57d-73a3af5e99e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NonSense">
+      <UniqueIdentifier>{8231affd-a291-4c23-8f06-3ebfab904705}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Macros.cpp">
+    <ClCompile Include="Assertions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\NonSense</Filter>
+    </ClCompile>
+    <ClCompile Include="Macros.cpp">
+      <Filter>Source Files\NonSense</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\NonSense</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSpawner.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\NonSense</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Macros.h">
+    <ClInclude Include="Assertions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\NonSense</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Header Files\NonSense</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\NonSense</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSpawner.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\NonSense</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assertions.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Macros.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="ParticleSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assertions.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Particle.h" />

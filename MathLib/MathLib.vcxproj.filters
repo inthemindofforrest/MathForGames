@@ -57,6 +57,9 @@
     <ClInclude Include="Transform3D.h">
       <Filter>Header Files\Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="MathLibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">

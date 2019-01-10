@@ -19,7 +19,7 @@ void transform2d::setLocalPosition(const vec2 & newPos)
 }
 void transform2d::setLocalRotation(const float newRot)
 {
-	trsMatrix.set(trsMatrix.rotation(newRot));
+	trsMatrix.set(trsMatrix * trsMatrix.rotation(newRot - localRotation()));
 }
 void transform2d::setLocalScale(const vec2 & newScale)
 {
@@ -37,17 +37,42 @@ void transform2d::rotate(const float angle)
 
 vec2 transform2d::worldPosition() const
 {
-	return parent->localPosition();
+	transform2d * CurrentParent = parent;
+	vec2 CurrentPos = localPosition();
+	while (CurrentParent != nullptr)
+	{
+		CurrentPos += CurrentParent->localPosition();
+		CurrentParent = CurrentParent->parent;
+	}
+	delete CurrentParent;
+	return CurrentPos;
 }
 
 float transform2d::worldRotation() const
 {
-	return parent->localRotation();
+	transform2d * CurrentParent = parent;
+	float CurrentRot = localRotation();
+	while (CurrentParent != nullptr)
+	{
+		CurrentRot += CurrentParent->localRotation();
+		CurrentParent = CurrentParent->parent;
+	}
+	delete CurrentParent;
+	return CurrentRot;
 }
 
 vec2 transform2d::worldScale() const
 {
-	return parent->localScale();
+	transform2d * CurrentParent = parent;
+	vec2 CurrentScale = localScale();
+	while (CurrentParent != nullptr)
+	{
+		CurrentScale.x *= CurrentParent->localScale().x;
+		CurrentScale.y *= CurrentParent->localScale().y;
+		CurrentParent = CurrentParent->parent;
+	}
+	delete CurrentParent;
+	return CurrentScale;
 }
 
 void transform2d::setParent(transform2d * _parent)
