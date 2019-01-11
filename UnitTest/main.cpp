@@ -23,10 +23,11 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (IsKeyDown(KEY_LEFT))
+		/*if (IsKeyDown(KEY_LEFT))
 			TankBarrel.transform.rotate(-1);
 		if (IsKeyDown(KEY_RIGHT))
-			TankBarrel.transform.rotate(1);
+			TankBarrel.transform.rotate(1);*/
+		TankBarrel.transform.lookAt({ (float)GetMouseX(), (float)GetMouseY() });
 
 		if (IsKeyDown(KEY_A))
 			TankBase.transform.rotate(-1);

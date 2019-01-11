@@ -31,7 +31,7 @@ struct transform2d
 	transform2d *getChildren() const;
 	size_t getChildrenCount() const;
 
-	void lookAt(const transform2d &target);
+	void lookAt(vec2 target);
 	vec2 forward() const;
 
 	mat3 getTRSMatrix() const;

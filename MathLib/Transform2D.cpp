@@ -86,9 +86,9 @@ size_t transform2d::getChildrenCount() const
 {
 	return children.size();
 }
-void transform2d::lookAt(const transform2d & target)
+void transform2d::lookAt(vec2 target)
 {
-	localRot = atan2(target.localPos.y - localPos.y, target.localPos.x - localPos.x);
+	localRot = atan2(target.y - localPos.y, target.x - localPos.x);
 }
 vec2 transform2d::forward() const
 {
