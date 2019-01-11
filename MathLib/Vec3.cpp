@@ -14,7 +14,7 @@ float vec3::magnitude() const
 {
 	return(sqrt(x * x + y * y + z * z));
 }
-float vec3::dot(const vec3 &rhs) const
+double vec3::dot(const vec3 &rhs) const
 {
 	return (x * rhs.x + y * rhs.y + z * rhs.z);
 }
@@ -22,7 +22,7 @@ vec3 vec3::cross(const vec3 & rhs) const
 {
 	//[ yz][x z][xy ]
 	//[ yz][x z][xy ]
-	return {y * rhs.z - z * rhs.y,z * rhs.x - x * rhs.z,x * rhs.y - y - rhs.x };
+	return { (float)(y * rhs.z - z * rhs.y),(float)(z * rhs.x - x - rhs.z),(float)(x * rhs.y - y * rhs.x) };
 }
 vec3::operator float*()
 {
@@ -34,7 +34,7 @@ vec3::operator const float*() const
 }
 vec3 & vec3::normalize()
 {
-	return (*this = {x /= magnitude(), y /= magnitude(), z /= magnitude()});
+	return (*this = getNormalised());
 }
 vec3 vec3::getNormalised() const
 {
@@ -83,7 +83,7 @@ vec3 & vec3::operator/=(const float rhs)
 bool vec3::operator==(const vec3 &rhs) const
 {
 	vec3 temp = *this - rhs; 
-	return (fAbs(temp.x) < (FLT_EPSILON * 10) && fAbs(temp.y) < (FLT_EPSILON * 10) && fAbs(temp.z) < (FLT_EPSILON * 10));
+	return (fAbs(temp.x) < (FLT_EPSILON * 1000) && fAbs(temp.y) < (FLT_EPSILON * 1000) && fAbs(temp.z) < (FLT_EPSILON * 10));
 }
 bool vec3::operator!=(const vec3 &rhs) const
 {

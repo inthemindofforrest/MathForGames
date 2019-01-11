@@ -15,17 +15,17 @@ float vec4::magnitude() const
 {
 	return(sqrt(x * x + y * y + z * z + w * w));
 }
-float vec4::dot(const vec4 &rhs) const
+double vec4::dot(const vec4 &rhs) const
 {
-	return (x * rhs.x + y * rhs.y + z * rhs.z + w - rhs.w);
+	return (x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w);
 }
 vec4 vec4::cross(const vec4 & rhs) const
 {
-	return {y * rhs.z - z * rhs.y,z * rhs.x - x * rhs.z,x * rhs.y - y - rhs.x,0};
+	return {y * rhs.z - z * rhs.y,z * rhs.x - x * rhs.z,x * rhs.y - y * rhs.x,0};
 }
 vec4 & vec4::normalize()
 {
-	return (*this = { x /= magnitude(), y /= magnitude(), z /= magnitude(), w /= magnitude() });
+	return (*this = getNormalised());
 }
 vec4 vec4::getNormalised() const
 {
@@ -83,8 +83,8 @@ vec4 & vec4::operator/=(const float rhs)
 bool vec4::operator==(const vec4 &rhs) const
 {
 	vec4 temp = *this - rhs;
-	return (fAbs(temp.x) < (FLT_EPSILON * 10) && fAbs(temp.y) < (FLT_EPSILON * 10) 
-		&& fAbs(temp.z) < (FLT_EPSILON * 10) && fAbs(temp.w) < (FLT_EPSILON * 10));
+	return (fAbs(temp.x) < (FLT_EPSILON * 1000) && fAbs(temp.y) < (FLT_EPSILON * 1000) 
+		&& fAbs(temp.z) < (FLT_EPSILON * 1000) && fAbs(temp.w) < (FLT_EPSILON * 1000));
 }
 bool vec4::operator!=(const vec4 &rhs) const
 {

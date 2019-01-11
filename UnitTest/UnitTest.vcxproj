@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Assertions.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Macros.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -133,9 +134,14 @@
   <ItemGroup>
     <ClInclude Include="Assertions.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleSpawner.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="TankBarrel.png" />
+    <Image Include="TankBase.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

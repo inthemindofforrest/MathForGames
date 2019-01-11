@@ -5,13 +5,17 @@
 #include "Matrix3.h"
 struct transform2d
 {
-	vec2 localPosition() const;
-	float localRotation() const;
-	vec2 localScale() const;
+	//vec2 localPosition() const;
+	//float localRotation() const;
+	//vec2 localScale() const;
 
-	void setLocalPosition(const vec2 &newPos);
+	vec2 localPos;
+	float localRot;
+	vec2 localScale;
+
+	/*void setLocalPosition(const vec2 &newPos);
 	void setLocalRotation(const float newRot);
-	void setLocalScale(const vec2 &newScale);
+	void setLocalScale(const vec2 &newScale);*/
 
 	void translate(const vec2& offset);
 	void rotate(const float angle);
@@ -27,13 +31,17 @@ struct transform2d
 	transform2d *getChildren() const;
 	size_t getChildrenCount() const;
 
+	void lookAt(const transform2d &target);
+	vec2 forward() const;
+
+	mat3 getTRSMatrix() const;
 
 
+	transform2d();
 private:
-	mat3 trsMatrix;
-
 	transform2d * parent;
 	std::vector<transform2d *> children;
+	
 	//[posx][posy][posz]
 	//[rotx][roty][rotz]
 	//[scax][scay][scaz]

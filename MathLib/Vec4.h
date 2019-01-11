@@ -11,7 +11,7 @@ struct vec4
 	vec4(float x, float y, float z, float w);
 
 	float magnitude() const;
-	float dot(const vec4 &rhs) const;
+	double dot(const vec4 &rhs) const;
 	vec4 cross(const vec4 &rhs) const;
 
 	vec4 &normalize();

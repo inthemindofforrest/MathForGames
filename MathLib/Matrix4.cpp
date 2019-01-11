@@ -64,7 +64,7 @@ mat4 & mat4::operator*=(const mat4 & rhs)
 bool mat4::operator==(const mat4 & rhs) const
 {
 	for (int i = 0; i < 16; i++)
-		if (m[i] != rhs.m[i])
+		if (m[i] - rhs.m[i] > FLT_EPSILON * 1000)
 			return false;
 	return true;
 }
@@ -130,30 +130,31 @@ mat4 mat4::translation(const vec3 & vec)
 }
 mat4 mat4::rotation(float rot, int CurrentAxis)
 {
+	mat4 Test = identity();
 	if (CurrentAxis == 0)//Rotate on X
 	{
-		return mat4(1,    0,         0,     0,
-					0, cos(rot), -sin(rot), 0,
-					0, sin(rot), cos(rot),  0,
+		Test = mat4(1,    0,         0,     0,
+					0, cos(rot), sin(rot), 0,
+					0, -sin(rot), cos(rot),  0,
 					0,    0,        0,      1);
 	}
 	else if (CurrentAxis == 1)//Rotate on Y
 	{
-		return mat4(cos(rot),       0,     sin(rot), 0,
+		Test = mat4(cos(rot),       0,     -sin(rot), 0,
 					   0,           1,        0,     0,
-				   -sin(rot),       0,     cos(rot), 0,
+				   sin(rot),       0,     cos(rot), 0,
 					    0,          0,        0,     1);
 	}
 	else if (CurrentAxis == 2)//Rotate on Z
 	{
-		return mat4(cos(rot), -sin(rot), 0, 0,
-			        sin(rot), cos(rot),  0, 0,
+		Test = mat4(cos(rot), sin(rot), 0, 0,
+			        -sin(rot), cos(rot),  0, 0,
 			           0,        0,      1, 0,
 			           0,        0,      0, 1);
 	}
 	else
 	{
-		return identity();
+		return Test;
 	}
 }
 mat4 mat4::scale(float xScale, float yScale, float zScale)

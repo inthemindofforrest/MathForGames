@@ -83,8 +83,8 @@ bool TerryAssertion()
 	v4b = vec4(5, 3.99f, -12, 1);
 	v4c = v4a.cross(v4b);
 
-	TEST("vec3 cross", v3c, vec3(-2860.62011719f, 4472.00000000f, 295.01498413f));
-	TEST("vec4 cross", v4c, vec4(-2860.62011719f, 4472.00000000f, 295.01498413f, 0));
+	TEST("vec3 cross", v3c, vec3(-2860.62012f, 4308.50000000f, 295.014984f));
+	TEST("vec4 cross", v4c, vec4(-2860.62012f, 4472.00000000f, 295.014984f, 0));
 
 	// vector magnitude
 	v2a = vec2(13.5f, -48.23f);
@@ -113,47 +113,62 @@ bool TerryAssertion()
 	// matrix rotation
 	mat3 m3a, m3b, m3c, m3d;
 	mat4 m4a, m4b, m4c, m4d;
-	//m3a.setRotateX(3.98f);
-	m4a.rotation(4.5f,0);
-	//m3b.setRotateY(1.76f);
-	m4b.rotation(-2.6f,2);
-	m3c.rotation(9.62f);
-	m4c.rotation(0.72f,3);
+	m3a.transpose();
+	m3a = m3a.rotation(3.98f,0);
+	m4a = m4a.rotation(4.5f,0);
+	m3b = m3b.rotation(1.76f,1);
+	m4b = m4b.rotation(-2.6f,1);
+	m3c = m3c.rotation(9.62f,2);
+	m4c = m4c.rotation(0.72f,2);
 
-	//TEST("mat3 set rotate", m3a, mat3(1, 0, 0, 0, -0.668648f, -0.743579f, 0, 0.743579f, -0.668648f));
-	//TEST("mat3 set rotate", m3b, mat3(-0.188077f, 0, -0.982154f, 0, 1, 0, 0.982154f, 0, -0.188077f));
-	TEST("mat3 set rotate", m3c, mat3(-0.981005f, -0.193984f, 0, 0.193984f, -0.981005f, 0, 0, 0, 1));
-	TEST("mat4 set rotate", m4a, mat4(1, 0, 0, 0, 0, -0.210796f, -0.97753f, 0, 0, 0.97753f, -0.210796f, 0, 0, 0, 0, 1));
-	TEST("mat4 set rotate", m4b, mat4(-0.856889f, 0, 0.515501f, 0, 0, 1, 0, 0, -0.515501f, 0, -0.856889f, 0, 0, 0, 0, 1));
-	TEST("mat4 set rotate", m4c, mat4(0.751806f, 0.659385f, 0, 0, -0.659385f, 0.751806f, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
-
+	TEST("mat3 set rotate", m3a, mat3(1, 0, 0, 0, -0.668647945, -0.743579149, 0, 0.743579149, -0.668647945));
+	TEST("mat3 set rotate", m3b, mat3(-0.188077f, 0, -0.982154f, 0, 1, 0, 0.982154f, 0, -0.188077f));
+	TEST("mat3 set rotate", m3c, mat3(-0.981004655f, -0.193984255f, 0, 0.193984255f, -0.981004655f, 0, 0, 0, 1));
+	TEST("mat4 set rotate", m4a, mat4(1, 0, 0, 0, 0, -0.210795805f, -0.977530122f, 0, 0, 0.977530122f, -0.210795805f, 0, 0, 0, 0, 1));
+	TEST("mat4 set rotate", m4b, mat4(-0.856888711f, 0, 0.515501440f, 0, 0, 1, 0, 0, -0.515501440f, 0, -0.856888711f, 0, 0, 0, 0, 1));
+	TEST("mat4 set rotate", m4c, mat4(0.751805723f, 0.659384668f, 0, 0, -0.659384668f, 0.751805723f, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
 	// vector transform
 	v2a = vec2(13.5f, -48.23f);
 	v3a = vec3(13.5f, -48.23f, 862);
+	m3b.transpose();
+	m3c.transpose();
 	v3b = m3b * v3a;
 	v3c = m3c * v3a;
 	v4a = vec4(13.5f, -48.23f, 862, 0);
+	m4b.transpose();
+	m4c.transpose();
 	v4b = m4b * v4a;
 	v4c = m4c * v4a;
 
-	TEST("vec3 matrix transform", v3b, vec3(844.077941895f, -48.2299995422f, -175.38130188f));
-	TEST("vec3 matrix transform", v3c, vec3(-22.5994224548f, 44.6950683594f, 862));
-	TEST("vec4 matrix transform", v4b, vec4(-455.930236816f, -48.2299995422f, -731.678771973f, 0));
-	TEST("vec4 matrix transform", v4c, vec4(41.951499939f, -27.3578968048f, 862, 0));
+	TEST("Vector3 matrix transform", v3b, vec3(844.077941895f, -48.2299995422f, -175.38130188f));
+	TEST("Vector3 matrix transform", v3c, vec3(-22.5994224548f, 44.6950683594f, 862));
+	TEST("Vector4 matrix transform", v4b, vec4(-455.930236816f, -48.2299995422f, -731.678771973f, 0));
+	TEST("Vector4 matrix transform", v4c, vec4(41.951499939f, -27.3578968048f, 862, 0));
 
 	// matrix multiply
+	m3a.transpose();
+	m3c.transpose();
+
 	m3d = m3a * m3c;
 	m4d = m4c * m4b;
 
-	TEST("mat3 multiply", m3d, mat3(-0.981004655361f, 0.129707172513f, 0.14424264431f, 0.193984255195f, 0.655946731567f, 0.729454636574f, 0, 0.743579149246f, -0.668647944927f));
-	TEST("mat4 multiply", m4d, mat4(-0.644213855267f, -0.565019249916f, 0.515501439571f, 0, -0.659384667873f, 0.751805722713f, 0, 0, -0.387556940317f, -0.339913755655f, -0.856888711452f, 0, 0, 0, 0, 1));
+	m3d.transpose();
+	m4d.transpose();
+
+	TEST("mat3 multiply", m3d, mat3(-0.981004655361f, 0.129707172513f, 0.14424264431f, 
+									0.193984255195f, 0.655946731567f, 0.729454636574f, 
+									0, 0.743579149246f, -0.668647944927f));
+	TEST("mat4 multiply", m4d, mat4(-0.644213855267f, -0.565019249916f, 0.515501439571f, 0,
+									-0.659384667873f, 0.751805722713f, 0, 0, 
+									-0.387556940317f, -0.339913755655f, -0.856888711452f, 0, 
+									0, 0, 0, 1));
 
 	// homogeneous point translation
-	m3b = mat3(1, 0, 0,
+				m3b = mat3(1, 0, 0,
 		0, 1, 0,
 		0, 0, 1);
 	m3b[2] = vec3(55, 44, 1);
-	m3c.rotation(2.2f);
+	m3c.rotation(2.2f, 2);
 	m3c[2] = vec3(55, 44, 1);
 	m4b = mat4(1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -180,7 +195,7 @@ bool TerryAssertion()
 		0, 1, 0,
 		0, 0, 1);
 	m3b[2] = vec3(55, 44, 1);
-	m3c.rotation(2.2f);
+	m3c.rotation(2.2f, 2);
 	m3c[2] = vec3(55, 44, 1);
 	m4b = mat4(1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -191,9 +206,13 @@ bool TerryAssertion()
 	m4c[3] = vec4(55, 44, 99, 1);
 
 	v3a = vec3(13.5f, -48.23f, 0);
+	m3b.transpose();
+	m3c.transpose();
 	v3b = m3b * v3a;
 	v3c = m3c * v3a;
 	v4a = vec4(13.5f, -48.23f, -54, 0);
+	m4b.transpose();
+	m4c.transpose();
 	v4b = m4b * v4a;
 	v4c = m4c * v4a;
 

@@ -53,7 +53,7 @@ mat3 & mat3::operator*=(const mat3 & rhs)
 bool mat3::operator==(const mat3 & rhs) const
 {
 	for (int i = 0; i < 9; i++)
-		if (m[i] != rhs.m[i])
+		if (m[i] - rhs.m[i] > FLT_EPSILON * 1000)
 			return false;
 	return true;
 }
@@ -108,11 +108,31 @@ mat3 mat3::translation(const vec2 & vec)
 {
 	return translation(vec.x, vec.y);
 }
-mat3 mat3::rotation(float rot)
+mat3 mat3::rotation(float rot, int Axis)
 {
-	return mat3(cos(rot), -sin(rot), 0,
-				sin(rot),  cos(rot), 0,
-				   0,		  0,	 1);
+	mat3 Test = identity();
+	if (Axis == 0)//Rotate on X
+	{
+		Test = mat3(1, 0, 0,
+			0, (float)cos(rot), (float)sin(rot), 
+			0, (float)-sin(rot), (float)cos(rot));
+	}
+	else if (Axis == 1)//Rotate on Y
+	{
+		Test = mat3((float)cos(rot), 0, (float)-sin(rot),
+			0, 1, 0,
+			(float)sin(rot), 0, (float)cos(rot));
+	}
+	else if (Axis == 2)//Rotate on Z
+	{
+		Test = mat3((float)cos(rot), (float)sin(rot), 0,
+			(float)-sin(rot), (float)cos(rot), 0,
+			0, 0, 1);
+	}
+	else
+	{
+		return Test;
+	}
 }
 mat3 mat3::scale(float xScale, float yScale)
 {

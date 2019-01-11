@@ -11,7 +11,7 @@ struct vec3
 	vec3(float x, float y, float z);
 
 	float magnitude() const;
-	float dot(const vec3 &rhs) const;
+	double dot(const vec3 &rhs) const;
 	vec3 cross(const vec3 &rhs) const;
 
 	vec3 &normalize();

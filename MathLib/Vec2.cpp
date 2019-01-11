@@ -19,7 +19,7 @@ float vec2::dot(const vec2 &rhs) const
 }
 vec2 & vec2::normalize()
 {
-	return (*this = {x /= magnitude(),y /= magnitude()});
+	return (*this = getNormalized());
 }
 vec2 vec2::getNormalized() const
 {
@@ -88,7 +88,7 @@ vec2 & vec2::operator/=(const float rhs)
 bool vec2::operator==(const vec2 &rhs) const
 {
 	vec2 temp = *this - rhs;
-	return (fAbs(temp.x) < (FLT_EPSILON * 10) && fAbs(temp.y) < (FLT_EPSILON * 10));
+	return (fAbs(temp.x) < (FLT_EPSILON * 1000) && fAbs(temp.y) < (FLT_EPSILON * 1000));
 }
 bool vec2::operator!=(const vec2 &rhs) const
 {
