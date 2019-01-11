@@ -33,8 +33,7 @@ mat3::operator float*()
 }
 vec3 & mat3::operator[](const int index)
 {
-	vec3 temp { mm[0][index], mm[1][index] ,mm[2][index] };
-	return temp;
+	return axis[index];
 }
 mat3 mat3::operator*(const mat3 & rhs) const
 {

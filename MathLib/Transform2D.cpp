@@ -1,4 +1,5 @@
 #include "Transform2D.h"
+#include <stack>
 
 transform2d::transform2d()
 {
@@ -10,59 +11,79 @@ transform2d::transform2d()
 }
 void transform2d::translate(const vec2 & offset)
 {
-	localPos += offset;
+	mat3 MyTemp = getTRSMatrix();
+
+	MyTemp.translation(offset);
+
+	localPos.x = MyTemp.mm[0][2];
+	localPos.y = MyTemp.mm[1][2];
 }
 void transform2d::rotate(const float angle)
 {
+	/*mat3 MyTemp = getTRSMatrix();
+
+	MyTemp.rotation(angle, 2);
+
+	localRot = atan2f(MyTemp.mm[1][0],MyTemp.mm[0][0]);*/
 	localRot = angle + localRot;
 }
 vec2 transform2d::worldPosition() const
 {
-	vec2 CurrentPos = { 0,0 };
+	/*vec2 CurrentPos = { 0,0 };
 	if (parent == nullptr)
 		return localPos;
 
+	std::stack<transform2d*> Parents;
 	transform2d * CurrentParent = parent;
 	while (CurrentParent != nullptr)
 	{
-		CurrentPos.x += CurrentParent->localPos.x + localPos.x * cos(parent->localRot);
-		CurrentPos.y += CurrentParent->localPos.y + localPos.y * sin(parent->localRot);
+		Parents.push(CurrentParent);
 		CurrentParent = CurrentParent->parent;
+	}
+	while (Parents.size() > 0)
+	{
+		CurrentPos.x += Parents.top()->localPos.x + (localPos.x * Parents.top()->localScale.x) * cos(Parents.top()->localRot);
+		CurrentPos.y += Parents.top()->localPos.y + (localPos.y* Parents.top()->localScale.y) * sin(Parents.top()->localRot);
+		Parents.pop();
 	}
 	delete CurrentParent;
 
-	return CurrentPos;
+	return CurrentPos;*/
+
+	/*if (parent == nullptr)
+		return localPos;
+
+	mat3 MyMat = mat3::identity();
+
+	for (transform2d * CurrentParent = parent; CurrentParent != nullptr; CurrentParent = CurrentParent->parent)
+		MyMat *= mat3::translation(parent->localPos);
+
+	return vec2(MyMat.mm[0][2], MyMat.mm[1][2]);*/
+	if (getParent() != nullptr) {
+		float tA = atan2(localPos.x, localPos.y) + parent->worldRotation();
+		float tR = sqrt(localPos.x*localPos.x + localPos.y*localPos.y);
+		return { cos(tA) * tR + parent->worldPosition().x, sin(tA) * tR + parent->worldPosition().y };
+	}
+	return localPos;
 }
 float transform2d::worldRotation() const
 {
-	float CurrentRot = localRot;
-	if (parent != nullptr)
-	{
-		transform2d * CurrentParent = parent;
-		while (CurrentParent != nullptr)
-		{
-			CurrentRot += CurrentParent->localRot;
-			CurrentParent = CurrentParent->parent;
-		}
-		delete CurrentParent;
-	}
-	return CurrentRot;
+	/*if (parent != nullptr)
+		return localRot;
+
+	mat3 Temp = mat3::identity();
+
+	for (transform2d * CurrentParent = parent; CurrentParent != nullptr; CurrentParent = CurrentParent->parent)
+		Temp *= CurrentParent->getTRSMatrix();
+
+
+	return atan2f(Temp.mm[1][0], Temp.mm[0][0]);*/
+	return (parent != nullptr ? localRot + parent->worldRotation() : localRot);
+
 }
 vec2 transform2d::worldScale() const
 {
-	vec2 CurrentScale = localScale;
-	if (parent != nullptr)
-	{
-		transform2d * CurrentParent = parent;
-		while (CurrentParent != nullptr)
-		{
-			CurrentScale.x *= CurrentParent->localScale.x;
-			CurrentScale.y *= CurrentParent->localScale.y;
-			CurrentParent = CurrentParent->parent;
-		}
-		delete CurrentParent;
-	}
-	return CurrentScale;
+	return (parent != nullptr ? vec2(localScale.x * parent->worldScale().x, localScale.y * parent->worldScale().y) : localScale);
 }
 void transform2d::setParent(transform2d * _parent)
 {
@@ -96,9 +117,7 @@ vec2 transform2d::forward() const
 }
 mat3 transform2d::getTRSMatrix() const
 {
-	return mat3(localPos.x, localPos.y,     0,
-				     0,           0,     localRot,
-				localScale.x, localScale.y, localScale.y);
+	return mat3::translation(localPos) * mat3::rotation(localRot, 2) * mat3::scale(localScale.x, localScale.y);
 }
 
 

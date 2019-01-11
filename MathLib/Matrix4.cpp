@@ -44,8 +44,7 @@ mat4::operator float*()
 }
 vec4 & mat4::operator[](const int index)
 {
-	vec4 temp{ mm[0][index], mm[1][index] ,mm[2][index], mm[3][index] };
-	return temp;
+	return axis[index];
 }
 mat4 mat4::operator*(const mat4 & rhs) const
 {
