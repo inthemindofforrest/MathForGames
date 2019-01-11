@@ -3,7 +3,17 @@
 
 bool UtilsAssert()
 {
-	assert(moveTowards(0, 25, 16) == 16);
+	TEST("Sum", sum(1,3), 4);
+	TEST("Sub", diff(8, 4), 4);
+	TEST("Min", min(45, 25), 25);
+	TEST("max", max(45, 25), 45);
+	TEST("clamp", clamp(4, 1, 3), 3);
+	TEST("abs", abs(-52), 52);
+	TEST("Fabs", fAbs(-0.32f), 0.32f);
+	TEST("Pow", pow(10, 3), 1000);
+	TEST("IsPowerOfTwo", isPowerOfTwo(7), false);
+	TEST("NextPowerOfTwo", nextPowerOfTwo(15), 16);
+	TEST("MoveTowards", moveTowards(10.0f, 15.0f, 3.0f), 13.0f);
 	return false;
 }
 
@@ -168,15 +178,24 @@ bool TerryAssertion()
 		0, 1, 0,
 		0, 0, 1);
 	m3b[2] = vec3(55, 44, 1);
+	m3b.transpose();
+
 	m3c.rotation(2.2f, 2);
+	m3c.transpose();
 	m3c[2] = vec3(55, 44, 1);
+	m3c.transpose();
+
 	m4b = mat4(1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1);
 	m4b[3] = vec4(55, 44, 99, 1);
+	m4b.transpose();
+
 	m4c.rotation(2.2f,2);
+	m4c.transpose();
 	m4c[3] = vec4(55, 44, 99, 1);
+	m4c.transpose();
 
 	v3a = vec3(13.5f, -48.23f, 1);
 	v3b = m3b * v3a;
@@ -186,24 +205,33 @@ bool TerryAssertion()
 	v4c = m4c * v4a;
 
 	TEST("vec3 matrix translation A", v3b, vec3(68.5f, -4.23f, 1));
-	TEST("vec3 matrix translation B", v3c, vec3(86.0490112305f, 83.2981109619f, 1));
+	TEST("vec3 matrix translation B", v3c, vec3(51.1122971f, 93.9326401f, 1));
 	TEST("vec4 matrix translation A", v4b, vec4(68.5f, -4.23f, 45, 1));
-	TEST("vec4 matrix translation B", v4c, vec4(86.0490112305f, 83.2981109619f, 45, 1));
+	TEST("vec4 matrix translation B", v4c, vec4(96.9514999f, 16.6421032f, 45, 1));
 
 	// homogeneous vector translation
 	m3b = mat3(1, 0, 0,
 		0, 1, 0,
 		0, 0, 1);
 	m3b[2] = vec3(55, 44, 1);
+	m3b.transpose();
+
 	m3c.rotation(2.2f, 2);
+	m3c.transpose();
 	m3c[2] = vec3(55, 44, 1);
+	m3c.transpose();
+
 	m4b = mat4(1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1);
 	m4b[3] = vec4(55, 44, 99, 1);
+	m4b.transpose();
+
 	m4c.rotation(2.2f, 2);
+	m4c.transpose();
 	m4c[3] = vec4(55, 44, 99, 1);
+	m4c.transpose();
 
 	v3a = vec3(13.5f, -48.23f, 0);
 	m3b.transpose();
@@ -216,10 +244,10 @@ bool TerryAssertion()
 	v4b = m4b * v4a;
 	v4c = m4c * v4a;
 
-	TEST("vec3 matrix translation C", v3b, vec3(13.5f, -48.23f, 0));
-	TEST("vec3 matrix translation D", v3c, vec3(31.0490131378f, 39.2981109619f, 0));
-	TEST("vec4 matrix translation C", v4b, vec4(13.5f, -48.23f, -54, 0));
-	TEST("vec4 matrix translation D", v4c, vec4(31.0490131378f, 39.2981109619f, -54, 0));
+	TEST("vec3 matrix translation C", v3b, vec3(13.5f, -48.23f, -1379.61987));
+	TEST("vec3 matrix translation D", v3c, vec3(-22.5994225f, 44.6950684f, -1379.61987));
+	TEST("vec4 matrix translation C", v4b, vec4(13.5f, -48.23f, -54, -6725.62012));
+	TEST("vec4 matrix translation D", v4c, vec4(-21.6527443f, -45.1612854f, -54, -6725.62012));
 
 	return true;
 }

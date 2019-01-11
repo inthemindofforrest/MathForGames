@@ -3,6 +3,7 @@
 
 int main()
 {
+	UtilsAssert();
 	TerryAssertion();
 
 	int screenWidth = 800;
@@ -14,20 +15,17 @@ int main()
 	GameObject TankBase("TankBase.png", true);
 	GameObject TankBarrel("TankBarrel.png", &TankBase, true);
 
-
-	TankBase.addChild(&TankBarrel);
 	TankBase.transform.localPos = { (float)((screenWidth / 2) - (TankBase.texture.width / 2)), (float)((screenHeight / 2) - (TankBase.texture.height / 2)) };
 
 	TankBarrel.transform.localPos = { 0,0 };
 
-
 	while (!WindowShouldClose())
 	{
-		/*if (IsKeyDown(KEY_LEFT))
+
+		if (IsKeyDown(KEY_LEFT))
 			TankBarrel.transform.rotate(-1);
 		if (IsKeyDown(KEY_RIGHT))
-			TankBarrel.transform.rotate(1);*/
-		TankBarrel.transform.lookAt({ (float)GetMouseX(), (float)GetMouseY() });
+			TankBarrel.transform.rotate(1);
 
 		if (IsKeyDown(KEY_A))
 			TankBase.transform.rotate(-1);
@@ -39,6 +37,10 @@ int main()
 		if (IsKeyDown(KEY_S))
 			TankBase.transform.localPos -= TankBase.transform.forward() * 2;
 
+		if (IsKeyDown(KEY_E))
+			TankBase.transform.localScale += {1 * GetFrameTime(), 1 * GetFrameTime()};
+		if (IsKeyDown(KEY_Q))
+			TankBase.transform.localScale -= {1 * GetFrameTime(), 1 * GetFrameTime()};
 
 		BeginDrawing();
 		ClearBackground(BLACK);

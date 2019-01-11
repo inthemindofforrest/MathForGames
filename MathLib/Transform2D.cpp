@@ -50,7 +50,7 @@ vec2 transform2d::worldPosition() const
 
 	return CurrentPos;*/
 
-	/*if (parent == nullptr)
+	if (parent == nullptr)
 		return localPos;
 
 	mat3 MyMat = mat3::identity();
@@ -58,13 +58,7 @@ vec2 transform2d::worldPosition() const
 	for (transform2d * CurrentParent = parent; CurrentParent != nullptr; CurrentParent = CurrentParent->parent)
 		MyMat *= mat3::translation(parent->localPos);
 
-	return vec2(MyMat.mm[0][2], MyMat.mm[1][2]);*/
-	if (getParent() != nullptr) {
-		float tA = atan2(localPos.x, localPos.y) + parent->worldRotation();
-		float tR = sqrt(localPos.x*localPos.x + localPos.y*localPos.y);
-		return { cos(tA) * tR + parent->worldPosition().x, sin(tA) * tR + parent->worldPosition().y };
-	}
-	return localPos;
+	return vec2(MyMat.mm[0][2], MyMat.mm[1][2]);
 }
 float transform2d::worldRotation() const
 {

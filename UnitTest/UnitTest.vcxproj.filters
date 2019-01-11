@@ -27,16 +27,7 @@
     <ClCompile Include="Assertions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files\NonSense</Filter>
-    </ClCompile>
     <ClCompile Include="Macros.cpp">
-      <Filter>Source Files\NonSense</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Source Files\NonSense</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSpawner.cpp">
       <Filter>Source Files\NonSense</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -47,16 +38,7 @@
     <ClInclude Include="Assertions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Header Files\NonSense</Filter>
-    </ClInclude>
     <ClInclude Include="Macros.h">
-      <Filter>Header Files\NonSense</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files\NonSense</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSpawner.h">
       <Filter>Header Files\NonSense</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
