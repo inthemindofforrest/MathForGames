@@ -20,12 +20,10 @@ void transform2d::translate(const vec2 & offset)
 }
 void transform2d::rotate(const float angle)
 {
-	/*mat3 MyTemp = getTRSMatrix();
-
-	MyTemp.rotation(angle, 2);
-
-	localRot = atan2f(MyTemp.mm[1][0],MyTemp.mm[0][0]);*/
-	localRot = angle + localRot;
+	mat3 MyTemp = getTRSMatrix();
+	MyTemp = MyTemp.rotation(angle, 2);
+	localRot += atan2f(MyTemp.m4,MyTemp.m1);
+	//localRot = angle + localRot;
 }
 vec2 transform2d::worldPosition() const
 {

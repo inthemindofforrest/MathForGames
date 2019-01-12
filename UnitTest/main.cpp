@@ -23,14 +23,14 @@ int main()
 	{
 
 		if (IsKeyDown(KEY_LEFT))
-			TankBarrel.transform.rotate(-1);
+			TankBarrel.transform.rotate(3);
 		if (IsKeyDown(KEY_RIGHT))
-			TankBarrel.transform.rotate(1);
+			TankBarrel.transform.rotate(-3);
 
 		if (IsKeyDown(KEY_A))
-			TankBase.transform.rotate(-1);
+			TankBase.transform.rotate(3);
 		if (IsKeyDown(KEY_D))
-			TankBase.transform.rotate(1);
+			TankBase.transform.rotate(-3);
 
 		if (IsKeyDown(KEY_W))
 			TankBase.transform.translate(TankBase.transform.forward() * 2);
