@@ -124,8 +124,8 @@ mat3 mat3::rotation(float rot, int Axis)
 	}
 	else if (Axis == 2)//Rotate on Z
 	{
-		Test = mat3((float)cos(rot), (float)sin(rot), 0,
-			(float)-sin(rot), (float)cos(rot), 0,
+		Test = mat3((float)cos(rot), (float)-sin(rot), 0,
+			(float)sin(rot), (float)cos(rot), 0,
 			0, 0, 1);
 	}
 	else

@@ -11,19 +11,15 @@ transform2d::transform2d()
 }
 void transform2d::translate(const vec2 & offset)
 {
-	mat3 MyTemp = getTRSMatrix();
-
-	MyTemp = MyTemp.translation(offset);
-
-	localPos.x += MyTemp.mm[0][2];
-	localPos.y += MyTemp.mm[1][2];
+	mat3 MyTemp = MyTemp.translation(offset);
+	localPos += {MyTemp.mm[0][2], MyTemp.mm[1][2]};
 }
 void transform2d::rotate(const float angle)
 {
 	mat3 MyTemp = getTRSMatrix();
 	MyTemp = MyTemp.rotation(angle, 2);
 	localRot += atan2f(MyTemp.m4,MyTemp.m1);
-	//localRot = angle + localRot;
+
 }
 vec2 transform2d::worldPosition() const
 {
@@ -75,6 +71,8 @@ float transform2d::worldRotation() const
 vec2 transform2d::worldScale() const
 {
 	return (parent != nullptr ? vec2(localScale.x * parent->worldScale().x, localScale.y * parent->worldScale().y) : localScale);
+	//return { sqrt((getWorldTRSMatrix().m1 * getWorldTRSMatrix().m1) + (getWorldTRSMatrix().m4 * getWorldTRSMatrix().m4)),
+	//	sqrt((getWorldTRSMatrix().m2 * getWorldTRSMatrix().m2) + (getWorldTRSMatrix().m5 * getWorldTRSMatrix().m5)) };
 }
 void transform2d::setParent(transform2d * _parent)
 {
@@ -110,5 +108,10 @@ mat3 transform2d::getTRSMatrix() const
 {
 	return mat3::translation(localPos) * mat3::rotation(localRot, 2) * mat3::scale(localScale.x, localScale.y);
 }
-
+mat3 transform2d::getWorldTRSMatrix() const
+{
+	if (getParent() != nullptr)
+		return parent->getWorldTRSMatrix() * getTRSMatrix();
+	return getTRSMatrix();
+}
 

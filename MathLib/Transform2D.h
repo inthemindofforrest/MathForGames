@@ -35,7 +35,7 @@ struct transform2d
 	vec2 forward() const;
 
 	mat3 getTRSMatrix() const;
-
+	mat3 getWorldTRSMatrix() const;
 
 	transform2d();
 private:
