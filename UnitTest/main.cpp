@@ -33,9 +33,9 @@ int main()
 			TankBase.transform.rotate(1);
 
 		if (IsKeyDown(KEY_W))
-			TankBase.transform.localPos += TankBase.transform.forward() * 2;
+			TankBase.transform.translate(TankBase.transform.forward() * 2);
 		if (IsKeyDown(KEY_S))
-			TankBase.transform.localPos -= TankBase.transform.forward() * 2;
+			TankBase.transform.translate(-TankBase.transform.forward() * 2);
 
 		if (IsKeyDown(KEY_E))
 			TankBase.transform.localScale += {1 * GetFrameTime(), 1 * GetFrameTime()};
