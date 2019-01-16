@@ -1,0 +1,3 @@
+﻿  main.cpp
+d:\source\mathforgames\mathlib\linearinterpolation.h(19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  UnitTest.vcxproj -> D:\Source\MathForGames\x64\Debug\UnitTest.exe

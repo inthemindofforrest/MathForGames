@@ -1,4 +1,5 @@
 #pragma once
+#include "UtilsPi.h"
 
 template <typename T>
 T lerp(const T& a, const T& b, float t)
@@ -15,7 +16,7 @@ T linearEase(float t, const T& b, const T& c, float d)
 template <typename T>
 T easeInSine(float t, const T& b, const T& c, float d)
 {
-	return b + c - c * cosf(t / d * HALF_PI);
+	return b + c - c * cosf(t / d * (_PI / 2));
 }
 
 template <typename T> 

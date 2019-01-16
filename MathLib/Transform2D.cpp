@@ -1,4 +1,5 @@
 #include "Transform2D.h"
+#include "UtilsPi.h"
 #include <stack>
 
 transform2d::transform2d()
@@ -23,26 +24,7 @@ void transform2d::rotate(const float angle)
 }
 vec2 transform2d::worldPosition() const
 {
-	/*vec2 CurrentPos = { 0,0 };
-	if (parent == nullptr)
-		return localPos;
 
-	std::stack<transform2d*> Parents;
-	transform2d * CurrentParent = parent;
-	while (CurrentParent != nullptr)
-	{
-		Parents.push(CurrentParent);
-		CurrentParent = CurrentParent->parent;
-	}
-	while (Parents.size() > 0)
-	{
-		CurrentPos.x += Parents.top()->localPos.x + (localPos.x * Parents.top()->localScale.x) * cos(Parents.top()->localRot);
-		CurrentPos.y += Parents.top()->localPos.y + (localPos.y* Parents.top()->localScale.y) * sin(Parents.top()->localRot);
-		Parents.pop();
-	}
-	delete CurrentParent;
-
-	return CurrentPos;*/
 
 	if (parent == nullptr)
 		return localPos;
@@ -56,23 +38,16 @@ vec2 transform2d::worldPosition() const
 }
 float transform2d::worldRotation() const
 {
-	/*if (parent != nullptr)
-		return localRot;
+	if (parent == nullptr)
+		return atan2f(getTRSMatrix().mm[1][0], getTRSMatrix().mm[0][0]);
 
-	mat3 Temp = mat3::identity();
-
-	for (transform2d * CurrentParent = parent; CurrentParent != nullptr; CurrentParent = CurrentParent->parent)
-		Temp *= CurrentParent->getTRSMatrix();
-
-
-	return atan2f(Temp.mm[1][0], Temp.mm[0][0]);*/
-	return (parent != nullptr ? localRot + parent->worldRotation() : localRot);
+	mat3 Temp = getWorldTRSMatrix() * getTRSMatrix();
+	return atan2f(Temp.mm[1][0], Temp.mm[0][0]);
 }
 vec2 transform2d::worldScale() const
 {
-	return (parent != nullptr ? vec2(localScale.x * parent->worldScale().x, localScale.y * parent->worldScale().y) : localScale);
-	//return { sqrt((getWorldTRSMatrix().m1 * getWorldTRSMatrix().m1) + (getWorldTRSMatrix().m4 * getWorldTRSMatrix().m4)),
-	//	sqrt((getWorldTRSMatrix().m2 * getWorldTRSMatrix().m2) + (getWorldTRSMatrix().m5 * getWorldTRSMatrix().m5)) };
+	return { sqrt((getWorldTRSMatrix().m1 * getWorldTRSMatrix().m1) + (getWorldTRSMatrix().m4 * getWorldTRSMatrix().m4)),
+		sqrt((getWorldTRSMatrix().m2 * getWorldTRSMatrix().m2) + (getWorldTRSMatrix().m5 * getWorldTRSMatrix().m5)) };
 }
 void transform2d::setParent(transform2d * _parent)
 {
@@ -102,7 +77,7 @@ void transform2d::lookAt(vec2 target)
 }
 vec2 transform2d::forward() const
 {
-	return vec2({(float)cos(3.141592653589793238 / 180 * localRot),(float)sin(3.141592653589793238 / 180 * localRot)});
+	return vec2({(float)cos(localRot),(float)sin(localRot)}).normalize();
 }
 mat3 transform2d::getTRSMatrix() const
 {

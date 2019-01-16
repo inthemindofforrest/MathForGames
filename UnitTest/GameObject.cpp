@@ -1,5 +1,5 @@
 #include "GameObject.h"
-
+#include "UtilsPi.h"
 GameObject::GameObject(){}
 
 GameObject::GameObject(std::string Texture, GameObject* Parent, bool Active)
@@ -61,12 +61,12 @@ void GameObject::Update()
 		//DrawTexture(texture, transform.localPos.x, transform.localPos.y, WHITE);
 		DrawTexturePro(texture, { 0,0,(float)texture.width,(float)texture.height },
 			{ (float)transform.worldPosition().x,(float)transform.worldPosition().y,(float)texture.width * (float)transform.localScale.x,(float)texture.height * (float)transform.localScale.y },
-			{ transform.worldScale().x * (float)texture.width / 2, transform.worldScale().y *(float)texture.height / 2 }, (float)transform.worldRotation() + 90, WHITE);
+			{ transform.worldScale().x * (float)texture.width / 2, transform.worldScale().y *(float)texture.height / 2 }, ((float)transform.worldRotation()* (180 / _PI) + 90)  , WHITE);
 		for (int i = 0; i < getChildrenCount(); i++)
 			if (getChildren()[i].IsActive)
 				DrawTexturePro(getChildren()[i].texture, { 0,0,(float)getChildren()[i].texture.width,(float)getChildren()[i].texture.height },
 					{ (float)getChildren()[i].transform.worldPosition().x,(float)getChildren()[i].transform.worldPosition().y,(float)getChildren()[i].texture.width * 
 					(float)getChildren()[i].transform.worldScale().x,(float)getChildren()[i].texture.height * (float)getChildren()[i].transform.worldScale().y },
-					{ getChildren()[i].transform.worldScale().x * (float)getChildren()[i].texture.width / 2, getChildren()[i].transform.worldScale().y * (float)getChildren()[i].texture.height }, (float)getChildren()[i].transform.worldRotation() + 90, WHITE);
+					{ getChildren()[i].transform.worldScale().x * (float)getChildren()[i].texture.width / 2, getChildren()[i].transform.worldScale().y * (float)getChildren()[i].texture.height }, ((float)getChildren()[i].transform.worldRotation()* (180 / _PI) + 90), WHITE);
 	}
 }

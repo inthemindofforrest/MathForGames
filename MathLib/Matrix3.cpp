@@ -109,28 +109,27 @@ mat3 mat3::translation(const vec2 & vec)
 }
 mat3 mat3::rotation(float rot, int Axis)
 {
-	mat3 Test = identity();
 	if (Axis == 0)//Rotate on X
 	{
-		Test = mat3(1, 0, 0,
+		return mat3(1, 0, 0,
 			0, (float)cos(rot), (float)sin(rot), 
 			0, (float)-sin(rot), (float)cos(rot));
 	}
 	else if (Axis == 1)//Rotate on Y
 	{
-		Test = mat3((float)cos(rot), 0, (float)-sin(rot),
+		return mat3((float)cos(rot), 0, (float)-sin(rot),
 			0, 1, 0,
 			(float)sin(rot), 0, (float)cos(rot));
 	}
 	else if (Axis == 2)//Rotate on Z
 	{
-		Test = mat3((float)cos(rot), (float)-sin(rot), 0,
+		return mat3((float)cos(rot), (float)-sin(rot), 0,
 			(float)sin(rot), (float)cos(rot), 0,
 			0, 0, 1);
 	}
 	else
 	{
-		return Test;
+		return identity();
 	}
 }
 mat3 mat3::scale(float xScale, float yScale)

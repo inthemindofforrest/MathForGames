@@ -129,31 +129,30 @@ mat4 mat4::translation(const vec3 & vec)
 }
 mat4 mat4::rotation(float rot, int CurrentAxis)
 {
-	mat4 Test = identity();
 	if (CurrentAxis == 0)//Rotate on X
 	{
-		Test = mat4(1,    0,         0,     0,
+		return mat4(1,    0,         0,     0,
 					0, cos(rot), sin(rot), 0,
 					0, -sin(rot), cos(rot),  0,
 					0,    0,        0,      1);
 	}
 	else if (CurrentAxis == 1)//Rotate on Y
 	{
-		Test = mat4(cos(rot),       0,     -sin(rot), 0,
+		return mat4(cos(rot),       0,     -sin(rot), 0,
 					   0,           1,        0,     0,
 				   sin(rot),       0,     cos(rot), 0,
 					    0,          0,        0,     1);
 	}
 	else if (CurrentAxis == 2)//Rotate on Z
 	{
-		Test = mat4(cos(rot), sin(rot), 0, 0,
+		return mat4(cos(rot), sin(rot), 0, 0,
 			        -sin(rot), cos(rot),  0, 0,
 			           0,        0,      1, 0,
 			           0,        0,      0, 1);
 	}
 	else
 	{
-		return Test;
+		return identity();
 	}
 }
 mat4 mat4::scale(float xScale, float yScale, float zScale)
